@@ -1,4 +1,4 @@
-<h1 align="center">DeepSeek V4 for GitHub Copilot</h1>
+<h1 align="center">DeepSeek V4 for Copilot Chat</h1>
 
 <p align="center">
   <a href="https://marketplace.visualstudio.com/items?itemName=Vizards.deepseek-v4-for-copilot"><img src="https://img.shields.io/badge/VS%20Code-Install%20Extension-blue?logo=visualstudiocode&style=for-the-badge" alt="Install in VS Code"></a>
