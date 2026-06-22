@@ -1,98 +1,114 @@
-<!-- marketplace-readme:remove-start -->
+﻿<!-- marketplace-readme:remove-start -->
 
-<h1 align="center">澶氭ā鍨?Copilot</h1>
-<h3 align="center">DeepSeek V4 + GLM-5.2 锝?VS Code Copilot Chat</h3>
+<h1 align="center">多模型 Copilot</h1>
+<h3 align="center">DeepSeek V4 + GLM-5.2 ｜ VS Code Copilot Chat</h3>
 
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/ludysama/multi-model-copilot?style=for-the-badge&label=Version" alt="鐗堟湰" />
+  <img src="https://img.shields.io/github/v/release/ludysama/multi-model-copilot?style=for-the-badge&label=Version" alt="版本" />
 </p>
 
 <p align="center">
   <a href="https://github.com/ludysama/multi-model-copilot/blob/main/README.md">English</a> |
-  绠€浣撲腑鏂?</p>
+  简体中文
+</p>
 
 ---
 
-> ## 馃嵈 Fork 鑷?[Vizards/deepseek-v4-for-copilot](https://github.com/Vizards/deepseek-v4-for-copilot) v0.6.2
+> ## 🍴 Fork 自 [Vizards/deepseek-v4-for-copilot](https://github.com/Vizards/deepseek-v4-for-copilot) v0.6.2
 > 
-> **鍘熶綔鑰咃細[Vizards](https://github.com/Vizards)** 鈥?DeepSeek V4 Copilot Chat 闆嗘垚鐨勬牳蹇冨伐浣滃叏閮ㄥ綊鍔熶簬鍘熶綔鑰呫€?> **鏈?Fork** 鍦ㄤ笂娓稿熀纭€涓婃墿灞曞妯″瀷鏀寔锛圙LM-5.2 + 鎸夋ā鍨嬬嫭绔?API Key锛夛紝鍚庣画璁″垝鍔犲叆鏇村鎻愪緵鏂广€?> 
-> 馃摝 [鏈?Fork](https://github.com/ludysama/multi-model-copilot) 路 馃敆 [涓婃父](https://github.com/Vizards/deepseek-v4-for-copilot) 路 馃搫 MIT 鍗忚
+> **原作者：[Vizards](https://github.com/Vizards)** — DeepSeek V4 Copilot Chat 集成的核心工作全部归功于原作者。
+> **本 Fork** 在上游基础上扩展多模型支持（GLM-5.2 + 按模型独立 API Key），后续计划加入更多提供方。
+> 
+> 📦 [本 Fork](https://github.com/ludysama/multi-model-copilot) · 🔗 [上游](https://github.com/Vizards/deepseek-v4-for-copilot) · 📄 MIT 协议
 >
-> _涓嬫柟鎴浘鏉ヨ嚜涓婃父 鈥?鏈?Fork 鍦ㄧ浉鍚?DeepSeek 鑳藉姏鍩虹涓婇澶栨坊鍔犱簡 GLM-5.2銆俖
+> _下方截图来自上游 — 本 Fork 在相同 DeepSeek 能力基础上额外添加了 GLM-5.2。_
 
 ---
 
-## 馃啎 鏈?Fork 鏂板鍔熻兘
+## 🆕 本 Fork 新增功能
 
-| 鐗规€?| 璇存槑 |
+| 特性 | 说明 |
 |------|------|
-| **GLM-5.2锛堟櫤璋憋級** | 鏅鸿氨鏃楄埌妯″瀷鎺ュ叆 Copilot 閫夋嫨鍣?鈥?1M 涓婁笅鏂囥€丱penAI 鍏煎绔偣 |
-| **鎸夋ā鍨嬬嫭绔?API Key** | DeepSeek 鍜屾櫤璋辩殑 Key 鍒嗗紑淇濆瓨锛岄€氳繃 QuickPick 鎸夋彁渚涙柟鍒嗗埆璁剧疆 |
-| **鎸夋ā鍨嬬嫭绔?Base URL** | 姣忎釜妯″瀷鑷甫 `baseUrl`锛屾棤澹版槑鏃跺洖钀藉叏灞€璁剧疆 |
-| **鍏ㄩ潰鏀瑰悕** | 鍛戒护/璁剧疆/ID 鍏ㄩ儴浠?`deepseek-copilot` 杩佺Щ鑷?`multi-model-copilot` |
+| **GLM-5.2（智谱）** | 智谱旗舰模型接入 Copilot 选择器 — 1M 上下文、OpenAI 兼容端点 |
+| **按模型独立 API Key** | DeepSeek 和智谱的 Key 分开保存，通过 QuickPick 按提供方分别设置 |
+| **按模型独立 Base URL** | 每个模型自带 `baseUrl`，无声明时回落全局设置 |
+| **全面改名** | 命令/设置/ID 全部从 `deepseek-copilot` 迁移至 `multi-model-copilot` |
 
-### 澶氭彁渚涙柟 Key 璁剧疆
+### 多提供方 Key 设置
 
-鍛戒护闈㈡澘杩愯 `澶氭ā鍨?Copilot: 璁剧疆 API Key` 鈥?寮瑰嚭 QuickPick 鍒楀嚭鎵€鏈夋敮鎸佺殑鎻愪緵鏂广€傞€変竴涓€佺矘璐?Key銆佺‘璁ゃ€傚姣忎釜鎻愪緵鏂归噸澶嶃€侹ey 淇濆瓨鍦ㄦ搷浣滅郴缁熷瘑閽ラ摼涓紝缁濅笉鍐欏叆鏂囦欢銆?
+命令面板运行 `多模型 Copilot: 设置 API Key` — 弹出 QuickPick 列出所有支持的提供方。选一个、粘贴 Key、确认。对每个提供方重复。Key 保存在操作系统密钥链中，绝不写入文件。
+
 ---
 
-## 馃К 缁ф壙鑷笂娓哥殑鍔熻兘
+## 🧬 继承自上游的功能
 
-浠ヤ笅鍔熻兘閽堝 DeepSeek V4锛團lash / Pro锛夛紝瀹屾暣淇濈暀鑷笂娓?v0.6.2锛?
-### DeepSeek V4 鍑虹幇鍦ㄦā鍨嬮€夋嫨鍣ㄤ腑
-涓?GPT-4o銆丆laude 绛夊苟鍒椼€?M 涓婁笅鏂囷紝鏀寔瀵硅瘽涓€斿垏鎹€?
-### 瑙嗚浠ｇ悊
-DeepSeek V4 鏈韩涓嶆敮鎸佸浘鐗囥€傛嫋鍏ユ埅鍥?鈫?鑷姩鐢卞叾浠?Copilot 瑙嗚妯″瀷鎻忚堪 鈫?鏂囨湰鍠傜粰 DeepSeek銆傞浂閰嶇疆銆?
-### 鎬濊€冩ā寮?閫氳繃 Copilot Chat 鍘熺敓閫夋嫨鍣ㄦ寜妯″瀷璁剧疆 `鍋滅敤` / `鏍囧噯` / `娣卞害` 鎺ㄧ悊寮哄害銆?
-### 瀹屾暣 Copilot 鑳藉姏鏍?Agent 妯″紡銆佸伐鍏疯皟鐢ㄣ€両nstructions銆丮CP銆丼kills 鍏ㄩ儴姝ｅ父宸ヤ綔銆?
-### 瀹夊叏浼樺厛
-API Key 淇濆瓨鍦ㄦ搷浣滅郴缁熷瘑閽ラ摼涓紝涓嶅啓鍏?`settings.json`锛屼笉杩涘叆 Git 鍘嗗彶銆?
-### 闆惰繍琛屾椂渚濊禆
-绾?VS Code API + Node.js锛屾棤闇€ Python銆丏ocker 鎴栨湰鍦颁唬鐞嗐€?
+以下功能针对 DeepSeek V4（Flash / Pro），完整保留自上游 v0.6.2：
+
+### DeepSeek V4 出现在模型选择器中
+与 GPT-4o、Claude 等并列。1M 上下文，支持对话中途切换。
+
+### 视觉代理
+DeepSeek V4 本身不支持图片。拖入截图 → 自动由其他 Copilot 视觉模型描述 → 文本喂给 DeepSeek。零配置。
+
+### 思考模式
+通过 Copilot Chat 原生选择器按模型设置 `停用` / `标准` / `深度` 推理强度。
+
+### 完整 Copilot 能力栈
+Agent 模式、工具调用、Instructions、MCP、Skills 全部正常工作。
+
+### 安全优先
+API Key 保存在操作系统密钥链中，不写入 `settings.json`，不进入 Git 历史。
+
+### 零运行时依赖
+纯 VS Code API + Node.js，无需 Python、Docker 或本地代理。
+
 ---
 
-## 妯″瀷
+## 模型
 
-| 妯″瀷 | 鎻愪緵鏂?| 涓婁笅鏂?| Key 鑾峰彇 |
+| 模型 | 提供方 | 上下文 | Key 获取 |
 |------|--------|--------|----------|
 | **DeepSeek V4 Flash** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
 | **DeepSeek V4 Pro** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
-| **GLM-5.2** | 鏅鸿氨 | 1M | [bigmodel.cn](https://bigmodel.cn) |
+| **GLM-5.2** | 智谱 | 1M | [bigmodel.cn](https://bigmodel.cn) |
 
 ---
 
-## 蹇€熷紑濮?
-1. `Cmd+Shift+P` 鈫?`澶氭ā鍨?Copilot: 璁剧疆 API Key`
-2. 閫夋嫨鎻愪緵鏂?鈫?绮樿创 Key 鈫?瀵规瘡涓彁渚涙柟閲嶅
-3. 鎵撳紑 Copilot Chat 鈫?浠庝笅鎷夎彍鍗曢€夋嫨浠绘剰妯″瀷
+## 快速开始
 
-### 鍓嶇疆鏉′欢
+1. `Cmd+Shift+P` → `多模型 Copilot: 设置 API Key`
+2. 选择提供方 → 粘贴 Key → 对每个提供方重复
+3. 打开 Copilot Chat → 从下拉菜单选择任意模型
+
+### 前置条件
 - VS Code >= 1.116
-- GitHub Copilot 璁㈤槄锛堝厤璐圭増鍗冲彲锛?- 浠?[DeepSeek](https://platform.deepseek.com) 鍜?鎴?[鏅鸿氨](https://bigmodel.cn) 鑾峰彇 API Key
+- GitHub Copilot 订阅（免费版即可）
+- 从 [DeepSeek](https://platform.deepseek.com) 和/或 [智谱](https://bigmodel.cn) 获取 API Key
 
-### 瀹夎
-浠?[GitHub Releases](https://github.com/ludysama/multi-model-copilot/releases) 涓嬭浇 `.vsix`锛屾墽琛岋細
+### 安装
+从 [GitHub Releases](https://github.com/ludysama/multi-model-copilot/releases) 下载 `.vsix`，执行：
 ```
 code --install-extension multi-model-copilot-0.6.2.vsix
 ```
 
 ---
 
-## 璁剧疆椤癸紙缁ф壙鑷笂娓革級
+## 设置项（继承自上游）
 
-| 璁剧疆椤?| 榛樿鍊?| 璇存槑 |
+| 设置项 | 默认值 | 说明 |
 |--------|--------|------|
-| `multi-model-copilot.baseUrl` | `https://api.deepseek.com` | 鍏滃簳 API 绔偣 |
-| `multi-model-copilot.maxTokens` | `0` | 鏈€澶ц緭鍑?Token锛?=涓嶉檺锛?|
-| `multi-model-copilot.modelIdOverrides` | 瀹樻柟 ID | 瑕嗙洊 API 妯″瀷鍚?|
+| `multi-model-copilot.baseUrl` | `https://api.deepseek.com` | 兜底 API 端点 |
+| `multi-model-copilot.maxTokens` | `0` | 最大输出 Token（0=不限） |
+| `multi-model-copilot.modelIdOverrides` | 官方 ID | 覆盖 API 模型名 |
 | `multi-model-copilot.debugMode` | `minimal` | `minimal` / `metadata` / `verbose` |
-| `multi-model-copilot.visionModel` | *(鑷姩)* | 瑙嗚浠ｇ悊妯″瀷 |
-| `multi-model-copilot.visionPrompt` | *(鍐呯疆)* | 鍥剧墖鎻忚堪鎻愮ず璇?|
-| `multi-model-copilot.experimental.stabilizeToolList` | `false` | 鎻愬崌缂撳瓨鍛戒腑鐜?|
+| `multi-model-copilot.visionModel` | *(自动)* | 视觉代理模型 |
+| `multi-model-copilot.visionPrompt` | *(内置)* | 图片描述提示词 |
+| `multi-model-copilot.experimental.stabilizeToolList` | `false` | 提升缓存命中率 |
 
 ---
 
-## 寮€婧愬崗璁?
-MIT 鈥?Copyright (c) 2026 Vizards, Copyright (c) 2026 ludysama
+## 开源协议
+
+MIT — Copyright (c) 2026 Vizards, Copyright (c) 2026 ludysama
 
 <!-- marketplace-readme:remove-end -->
