@@ -9,38 +9,38 @@
 
 <p align="center">
   English |
-  <a href="https://github.com/ludysama/multi-model-copilot/blob/main/README.zh-cn.md">绠€浣撲腑鏂?/a>
+  <a href="https://github.com/ludysama/multi-model-copilot/blob/main/README.zh-cn.md">简体中文</a>
 </p>
 
 ---
 
-> ## 馃嵈 Forked from [Vizards/deepseek-v4-for-copilot](https://github.com/Vizards/deepseek-v4-for-copilot) v0.6.2
-> 
-> **Original author: [Vizards](https://github.com/Vizards)** 鈥?all core DeepSeek V4 Copilot Chat integration is their work.
-> **This fork** adds multi-model support (GLM-5.2, per-model API keys) and plans to add more providers.
-> 
-> 馃摝 [This fork](https://github.com/ludysama/multi-model-copilot) 路 馃敆 [Upstream](https://github.com/Vizards/deepseek-v4-for-copilot) 路 馃搫 MIT License
+> ## [FORK] Forked from [Vizards/deepseek-v4-for-copilot](https://github.com/Vizards/deepseek-v4-for-copilot) v0.6.2
 >
-> _Screenshots below are from upstream 鈥?this fork adds GLM-5.2 alongside the same DeepSeek capabilities._
+> **Original author: [Vizards](https://github.com/Vizards)** -- all core DeepSeek V4 Copilot Chat integration is their work.
+> **This fork** adds multi-model support (GLM-5.2, per-model API keys) and plans to add more providers.
+>
+> [This fork](https://github.com/ludysama/multi-model-copilot) | [Upstream](https://github.com/Vizards/deepseek-v4-for-copilot) | MIT License
+>
+> *Screenshots below are from upstream -- this fork adds GLM-5.2 alongside the same DeepSeek capabilities.*
 
 ---
 
-## 馃啎 What This Fork Adds
+## [NEW] What This Fork Adds
 
 | Feature | Details |
 |---------|---------|
-| **GLM-5.2 (Zhipu)** | Zhipu flagship model in the Copilot picker 鈥?1M context, OpenAI-compatible endpoint |
+| **GLM-5.2 (Zhipu)** | Zhipu flagship model in the Copilot picker -- 1M context, OpenAI-compatible endpoint |
 | **Per-model API keys** | DeepSeek and Zhipu keys stored independently. Set once per provider via QuickPick |
 | **Per-model base URL** | Each model carries its own `baseUrl`; fallback to global setting when absent |
 | **Rebranded** | All commands / settings / IDs migrated from `deepseek-copilot` to `multi-model-copilot` |
 
 ### Multi-Provider Key Setup
 
-Run `Multi-Model Copilot: Set API Key` from the Command Palette 鈥?a QuickPick lists every supported provider. Pick one, paste the key. Repeat for each provider. Keys never leave the OS keychain.
+Run `Multi-Model Copilot: Set API Key` from the Command Palette -- a QuickPick lists every supported provider. Pick one, paste the key. Repeat for each provider. Keys never leave the OS keychain.
 
 ---
 
-## 馃К Inherited from Upstream
+## [INHERITED] From Upstream
 
 Everything below works for DeepSeek V4 (Flash / Pro) and is preserved from upstream v0.6.2:
 
@@ -48,13 +48,13 @@ Everything below works for DeepSeek V4 (Flash / Pro) and is preserved from upstr
 DeepSeek V4 Flash & Pro appear alongside GPT-4o, Claude, etc. 1M context, switch mid-chat.
 
 ### Vision Proxy
-DeepSeek V4 is text-only. Drop an image into chat 鈫?auto-described by another Copilot vision model 鈫?fed to DeepSeek. Zero config.
+DeepSeek V4 is text-only. Drop an image into chat -> auto-described by another Copilot vision model -> fed to DeepSeek. Zero config.
 
 ### Thinking Mode
 `none` / `high` / `max` reasoning effort per model, via Copilot Chat native picker.
 
 ### Full Copilot Stack
-Agent mode, tool calling, instructions, MCP, skills 鈥?all work because this plugs into Copilot native provider API.
+Agent mode, tool calling, instructions, MCP, skills -- all work because this plugs into Copilot native provider API.
 
 ### Secure by Default
 API keys live in VS Code `SecretStorage` (OS keychain), never in `settings.json` or Git.
@@ -76,9 +76,9 @@ Pure VS Code API + Node.js. No Python, Docker, or local proxy.
 
 ## Quick Start
 
-1. `Cmd+Shift+P` 鈫?`Multi-Model Copilot: Set API Key`
-2. Pick provider 鈫?paste key 鈫?repeat for each provider
-3. Open Copilot Chat 鈫?pick any model from the dropdown
+1. `Cmd+Shift+P` -> `Multi-Model Copilot: Set API Key`
+2. Pick provider -> paste key -> repeat for each provider
+3. Open Copilot Chat -> pick any model from the dropdown
 
 ### Prerequisites
 - VS Code >= 1.116
@@ -109,6 +109,6 @@ code --install-extension multi-model-copilot-0.6.2.vsix
 
 ## License
 
-MIT 鈥?Copyright (c) 2026 Vizards, Copyright (c) 2026 ludysama
+MIT -- Copyright (c) 2026 Vizards, Copyright (c) 2026 ludysama
 
 <!-- marketplace-readme:remove-end -->
