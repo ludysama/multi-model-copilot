@@ -1,150 +1,114 @@
-<h1 align="center">Multi-Model Copilot (DeepSeek V4 + GLM-5.2)</h1>
+<!-- marketplace-readme:remove-start -->
+
+<h1 align="center">Multi-Model Copilot</h1>
+<h3 align="center">DeepSeek V4 + GLM-5.2 in VS Code Copilot Chat</h3>
 
 <p align="center">
-  <!-- marketplace-readme:remove-start -->
-  <a href="https://marketplace.visualstudio.com/items?itemName=ludysama.multi-model-copilot"><img src="https://img.shields.io/badge/VS%20Code%20Marketplace-Install-007ACC?logo=visualstudiocode&logoColor=white&style=for-the-badge" alt="Install from VS Code Marketplace"></a>
-  <a href="https://open-vsx.org/extension/ludysama/multi-model-copilot"><img src="https://img.shields.io/badge/Open%20VSX-Install-6A4FB6?style=for-the-badge" alt="Install from Open VSX"></a>
-  <br/>
-  <!-- marketplace-readme:remove-end -->
   <img src="https://img.shields.io/github/v/release/ludysama/multi-model-copilot?style=for-the-badge&label=Version" alt="Version" />
-  <img src="https://vsmarketplacebadges.dev/installs-short/ludysama.multi-model-copilot.svg?style=for-the-badge" alt="Installs" />
 </p>
 
 <p align="center">
   English |
-  <a href="https://github.com/ludysama/multi-model-copilot/blob/main/README.zh-cn.md">简体中文</a>
+  <a href="https://github.com/ludysama/multi-model-copilot/blob/main/README.zh-cn.md">绠€浣撲腑鏂?/a>
 </p>
 
 ---
 
-> ## 🍴 Forked from [Vizards/deepseek-v4-for-copilot](https://github.com/Vizards/deepseek-v4-for-copilot) v0.6.2
+> ## 馃嵈 Forked from [Vizards/deepseek-v4-for-copilot](https://github.com/Vizards/deepseek-v4-for-copilot) v0.6.2
 > 
-> **Original author: [Vizards](https://github.com/Vizards)** — all credit for the core DeepSeek V4 Copilot Chat integration goes to them.
-> This fork extends the upstream with **multi-model support** (GLM-5.2 + per-model API key routing) and plans to add more providers.
-> Licensed under MIT — same as upstream.
+> **Original author: [Vizards](https://github.com/Vizards)** 鈥?all core DeepSeek V4 Copilot Chat integration is their work.
+> **This fork** adds multi-model support (GLM-5.2, per-model API keys) and plans to add more providers.
 > 
-> 📦 [This fork on GitHub](https://github.com/ludysama/multi-model-copilot) · 🔗 [Original upstream](https://github.com/Vizards/deepseek-v4-for-copilot)
+> 馃摝 [This fork](https://github.com/ludysama/multi-model-copilot) 路 馃敆 [Upstream](https://github.com/Vizards/deepseek-v4-for-copilot) 路 馃搫 MIT License
+>
+> _Screenshots below are from upstream 鈥?this fork adds GLM-5.2 alongside the same DeepSeek capabilities._
 
 ---
 
-**Pick DeepSeek V4 or Zhipu GLM-5.2 from the Copilot Chat model picker — and keep everything else Copilot already gives you.**
+## 馃啎 What This Fork Adds
 
-<p align="center">
-  <img src="resources/screenshots/01-picker.png" alt="DeepSeek V4 Pro and Flash in the Copilot Chat model picker, with the per-model Thinking Effort dropdown (None / High / Max)" width="800">
-</p>
+| Feature | Details |
+|---------|---------|
+| **GLM-5.2 (Zhipu)** | Zhipu flagship model in the Copilot picker 鈥?1M context, OpenAI-compatible endpoint |
+| **Per-model API keys** | DeepSeek and Zhipu keys stored independently. Set once per provider via QuickPick |
+| **Per-model base URL** | Each model carries its own `baseUrl`; fallback to global setting when absent |
+| **Rebranded** | All commands / settings / IDs migrated from `deepseek-copilot` to `multi-model-copilot` |
 
-Love DeepSeek / Zhipu's price-performance but don't want to give up GitHub Copilot's agent mode, tool calling, and polished UI? This extension drops **DeepSeek V4 Pro & Flash** and **Zhipu GLM-5.2** straight into the Copilot Chat model selector — with **vision**, **thinking mode**, and your own per-provider API keys. Multiple providers coexist; each key is stored independently.
+### Multi-Provider Key Setup
 
-## Why this extension?
+Run `Multi-Model Copilot: Set API Key` from the Command Palette 鈥?a QuickPick lists every supported provider. Pick one, paste the key. Repeat for each provider. Keys never leave the OS keychain.
 
-- **Don't replace Copilot — power it up.** No new sidebar, no new chat UI to learn. Just a new model in the picker you already use.
-- **Agent mode, tool calling, instructions, MCP, skills — all of it still works.** Copilot's entire stack, now running on DeepSeek.
-- **Vision on a text-only model.** DeepSeek V4 can't see images. This extension proxies any image you drop into chat through another Copilot model you already have, then feeds the description to DeepSeek — transparently.
-- **BYOK, pay DeepSeek directly.** Your API key, your bill, your rate limits. Stored in the OS keychain, never on disk.
+---
 
-## Features
+## 馃К Inherited from Upstream
 
-### DeepSeek V4 Pro & Flash + Zhipu GLM-5.2 in the model picker
-All three models show up alongside GPT-4o, Claude, and friends in Copilot Chat's model selector. 1M token context on each. Switch models mid-chat without losing history.
+Everything below works for DeepSeek V4 (Flash / Pro) and is preserved from upstream v0.6.2:
 
-### Transparent Vision Proxy
-DeepSeek V4 is text-only. Drop a screenshot into chat and this extension automatically hands the image to another installed Copilot model (Claude, GPT-4o, whatever you've got), gets a description, and feeds that back to DeepSeek. **Zero config** — just pick your preferred vision model once.
+### DeepSeek V4 in the Model Picker
+DeepSeek V4 Flash & Pro appear alongside GPT-4o, Claude, etc. 1M context, switch mid-chat.
 
-This proxy is a compatibility bridge; if DeepSeek native vision becomes available, the extension will move toward a more unified vision path.
+### Vision Proxy
+DeepSeek V4 is text-only. Drop an image into chat 鈫?auto-described by another Copilot vision model 鈫?fed to DeepSeek. Zero config.
 
-<p align="center">
-  <img src="resources/screenshots/03-vision.png" alt="Dropping an image into Copilot Chat and DeepSeek responding to it via the vision proxy" width="800">
-</p>
+### Thinking Mode
+`none` / `high` / `max` reasoning effort per model, via Copilot Chat native picker.
 
-### Thinking Mode with Reasoning Effort Control
-Full support for DeepSeek V4's `reasoning_content`. Use Copilot Chat's native model picker menu to choose `none` (off), `high` (balanced, default), or `max` (deep reasoning for hard agent tasks).
-
-### Inherits Every Copilot Capability
-Because this plugs into Copilot's native provider API, you get the full stack for free:
-- **Agent mode** — autonomous multi-step tasks
-- **Tool calling** — file edits, terminal, workspace search, Git, tests
-- **Instructions & skills** — all your `.instructions.md`, `AGENTS.md`, and skills just work
-- **Prompt caching stats** — DeepSeek's cache hit rate logged in the output channel so you can see the savings
-
-<p align="center">
-  <img src="resources/screenshots/04-agent.png" alt="DeepSeek V4 Pro running Copilot's agent mode with tool calls" width="800">
-</p>
+### Full Copilot Stack
+Agent mode, tool calling, instructions, MCP, skills 鈥?all work because this plugs into Copilot native provider API.
 
 ### Secure by Default
-API key lives in VS Code's `SecretStorage` (OS keychain on macOS / Windows / Linux). Never in `settings.json`, never in your Git history.
+API keys live in VS Code `SecretStorage` (OS keychain), never in `settings.json` or Git.
 
 ### Zero Runtime Dependencies
-Pure VS Code API + Node.js built-ins. No Python, no Docker, no local proxy server to babysit.
+Pure VS Code API + Node.js. No Python, Docker, or local proxy.
 
-## Getting Started
-
-### Prerequisites
-
-- VS Code 1.116 or later. This extension relies on non-public Copilot Chat APIs that may break on newer VS Code versions — [report an issue](https://github.com/ludysama/multi-model-copilot/issues) if you hit one.
-- GitHub Copilot subscription (Free / Pro / Enterprise — the free tier works)
-- DeepSeek API key from [platform.deepseek.com](https://platform.deepseek.com), or a compatible provider token when using a custom `deepseek-copilot.baseUrl`
-- (Optional) Zhipu GLM API key from [bigmodel.cn](https://bigmodel.cn/usercenter/proj-mgmt/apikeys) to enable GLM-5.2
-
-### Installation
-
-Install from the registry used by your editor:
-
-1. **Microsoft VS Code** — install from [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=ludysama.multi-model-copilot).
-2. **Editors that use Open VSX** — install from [Open VSX](https://open-vsx.org/extension/ludysama/multi-model-copilot).
-
-### Usage
-
-1. Run **Multi-Model Copilot: Set API Key** from the Command Palette (`Cmd+Shift+P`)
-2. A QuickPick lists every supported provider — pick one and paste the corresponding key. Repeat for each provider you want to use (official DeepSeek keys usually start with `sk-`)
-3. Open Copilot Chat, click the model picker, pick **DeepSeek V4 Pro**, **DeepSeek V4 Flash**, or **GLM-5.2 (Zhipu)**
-4. That's it — chat away
+---
 
 ## Models
 
-| Model | Best For |
-|---|---|
-| **DeepSeek V4 Flash** | Fast everyday coding, quick edits, cheap iteration |
-| **DeepSeek V4 Pro** | Complex refactors, agent tasks, deep reasoning |
-| **GLM-5.2 (Zhipu)** | 1M context, OpenAI-compatible endpoint, competitive pricing |
+| Model | Provider | Context | Key Source |
+|-------|----------|---------|------------|
+| **DeepSeek V4 Flash** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
+| **DeepSeek V4 Pro** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
+| **GLM-5.2** | Zhipu | 1M | [bigmodel.cn](https://bigmodel.cn) |
 
-DeepSeek V4 supports optional thinking mode, tool calling, and 1M token context. GLM-5.2 supports tool calling and 1M token context.
+---
 
-## Settings
+## Quick Start
 
-| Setting | Default | Description |
-|---|---|---|
-| `deepseek-copilot.baseUrl` | `https://api.deepseek.com` | API endpoint — change for self-hosted / proxied deployments |
-| `deepseek-copilot.maxTokens` | `0` | Max output tokens (`0` = no limit). Useful for cost control |
-| `deepseek-copilot.modelIdOverrides` | prefilled official ID map | API model IDs to send for DeepSeek V4 Flash / Pro. Change only for compatible third-party APIs with different model names |
-| `deepseek-copilot.debugMode` | `minimal` | Diagnostic mode: `minimal` for token usage only, `metadata` for privacy-preserving logs, or `verbose` for full request dumps and pipeline snapshots under extension global storage. Full dumps may include sensitive prompt text, tool schemas, file snippets, and image descriptions. Use `Multi-Model Copilot: Open Request Dumps Folder` to open the dump location |
-| `deepseek-copilot.visionModel` | *(auto)* | VS Code vision model used to proxy images. Configure from `Multi-Model Copilot: Configure Vision Proxy`; new saves use `vendor/id`, while legacy bare model IDs are still read |
-| `deepseek-copilot.visionPrompt` | *(built-in)* | Prompt used to describe image attachments |
-| `deepseek-copilot.experimental.stabilizeToolList` | `false` | Experimental. Tries to pre-activate VS Code/Copilot virtual tools so the DeepSeek API `tools` parameter is more complete and stable across turns. May improve context-cache hit rate when enabled tools change between turns. Can increase input tokens because more function definitions may be included; cache-hit input tokens are cheaper but still count toward usage. Usually leave it off with 64 or fewer enabled tools unless the tool list still changes across turns; do not enable it with more than 128 enabled tools |
+1. `Cmd+Shift+P` 鈫?`Multi-Model Copilot: Set API Key`
+2. Pick provider 鈫?paste key 鈫?repeat for each provider
+3. Open Copilot Chat 鈫?pick any model from the dropdown
 
-Thinking Effort is configured from Copilot Chat's model picker for each DeepSeek model.
+### Prerequisites
+- VS Code >= 1.116
+- GitHub Copilot subscription (Free tier works)
+- API key(s) from [DeepSeek](https://platform.deepseek.com) and/or [Zhipu](https://bigmodel.cn)
 
-Example `settings.json` override for compatible API proxies:
-
-```json
-{
-  "deepseek-copilot.modelIdOverrides": {
-    "deepseek-v4-flash": "your-flash-model-id",
-    "deepseek-v4-pro": "your-pro-model-id"
-  }
-}
+### Install
+Download the `.vsix` from [GitHub Releases](https://github.com/ludysama/multi-model-copilot/releases) and run:
+```
+code --install-extension multi-model-copilot-0.6.2.vsix
 ```
 
-## Compared to alternatives
+---
 
-| | This extension | Local proxy (e.g. LiteLLM) | Standalone DeepSeek extensions |
-|---|---|---|---|
-| Works inside Copilot Chat | ✅ | ✅ | ❌ separate UI |
-| Agent mode, tools, skills | ✅ | ✅ | ⚠️ reimplemented |
-| Vision support | ✅ proxied | ❌ | ❌ |
-| No extra process to run | ✅ | ❌ | ✅ |
-| One-click install | ✅ | ❌ | ✅ |
-| API key in OS keychain | ✅ | ❌ | ⚠️ varies |
+## Settings (inherited from upstream)
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `multi-model-copilot.baseUrl` | `https://api.deepseek.com` | Fallback API endpoint |
+| `multi-model-copilot.maxTokens` | `0` | Max output tokens (0 = unlimited) |
+| `multi-model-copilot.modelIdOverrides` | official IDs | Override API model names |
+| `multi-model-copilot.debugMode` | `minimal` | `minimal` / `metadata` / `verbose` |
+| `multi-model-copilot.visionModel` | *(auto)* | Vision proxy model |
+| `multi-model-copilot.visionPrompt` | *(built-in)* | Prompt for describing images |
+| `multi-model-copilot.experimental.stabilizeToolList` | `false` | Improve cache-hit rate |
+
+---
 
 ## License
 
-[MIT](LICENSE)
+MIT 鈥?Copyright (c) 2026 Vizards, Copyright (c) 2026 ludysama
+
+<!-- marketplace-readme:remove-end -->
