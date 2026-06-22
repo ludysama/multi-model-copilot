@@ -26,12 +26,17 @@ const zh: Translations = {
 
 	// API Key
 	'auth.apiKeyRequiredDetail': '请先配置 API Key',
-	'auth.prompt': '请输入 DeepSeek API Key 或兼容服务令牌。官方 DeepSeek Key 通常以 "sk-" 开头。',
+	'auth.prompt': '请输入所选模型的 API Key 或兼容服务令牌。官方 DeepSeek Key 通常以 "sk-" 开头。',
+	'auth.promptFor': '请输入 {0} 的 API Key。',
 	'auth.placeholder': 'sk-... 或服务商令牌',
 	'auth.emptyValidation': 'API Key 不能为空',
 	'auth.saved': 'API Key 已安全保存。',
+	'auth.savedFor': '已为 {0} 保存 API Key。',
 	'auth.removed': 'API Key 已移除。',
-	'auth.notConfigured': 'API Key 未配置，请在命令面板运行 "DeepSeek: 设置 API Key"。',
+	'auth.notConfigured': 'API Key 未配置，请在命令面板运行 "多模型 Copilot: 设置 API Key"。',
+	'auth.selectModelTitle': '选择要设置 API Key 的模型',
+	'auth.selectModelPlaceholder': '支持多模型并存（DeepSeek / GLM-5.2 等），各 key 独立保存',
+	'auth.defaultModelLabel': 'DeepSeek',
 
 	// Thinking Effort — short labels for model picker dropdown
 	'status.thinking': '思考模式',
@@ -213,15 +218,20 @@ const en: Translations = {
 		'DeepSeek V4 model for agentic coding, broad world knowledge, and high-end reasoning.',
 
 	// API Key
-	'auth.apiKeyRequiredDetail': 'Please run DeepSeek: Set API Key to configure.',
+	'auth.apiKeyRequiredDetail': 'Please run Multi-Model Copilot: Set API Key to configure.',
 	'auth.prompt':
-		'Enter your DeepSeek API key or compatible provider token. Official DeepSeek keys usually start with "sk-".',
+		'Enter the API key for the selected model or a compatible provider token. Official DeepSeek keys usually start with "sk-".',
+	'auth.promptFor': 'Enter the API key for {0}.',
 	'auth.placeholder': 'sk-... or provider token',
 	'auth.emptyValidation': 'API key cannot be empty',
-	'auth.saved': 'DeepSeek API key saved.',
-	'auth.removed': 'DeepSeek API key removed.',
+	'auth.saved': 'API key saved.',
+	'auth.savedFor': 'API key saved for {0}.',
+	'auth.removed': 'API key removed.',
 	'auth.notConfigured':
-		'DeepSeek API key not configured. Run "DeepSeek: Set API Key" from the Command Palette.',
+		'API key not configured. Run "Multi-Model Copilot: Set API Key" from the Command Palette.',
+	'auth.selectModelTitle': 'Select model to set API key for',
+	'auth.selectModelPlaceholder': 'Multi-provider supported (DeepSeek / GLM-5.2, etc.); keys stored independently',
+	'auth.defaultModelLabel': 'DeepSeek',
 
 	// Thinking Effort
 	'status.thinking': 'Thinking Effort',

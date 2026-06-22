@@ -1,5 +1,5 @@
 import vscode from 'vscode';
-import { CONFIG_SECTION } from './consts';
+import { CONFIG_SECTION, MODELS } from './consts';
 
 export type DebugMode = 'minimal' | 'metadata' | 'verbose';
 
@@ -7,7 +7,15 @@ export type DebugMode = 'minimal' | 'metadata' | 'verbose';
  * Get DeepSeek API base URL from settings.
  * Falls back to the official endpoint when not configured.
  */
-export function getBaseUrl(): string {
+export function getBaseUrl(modelId?: string): string {
+	// 1) 优先 model 自带的 baseUrl (编译时常量)
+	if (modelId) {
+		const modelDef = MODELS.find((m) => m.id === modelId);
+		if (modelDef?.baseUrl) {
+			return modelDef.baseUrl;
+		}
+	}
+	// 2) 兜底:全局 baseUrl 配置
 	const config = vscode.workspace.getConfiguration(CONFIG_SECTION);
 	return config.get<string>('baseUrl') || 'https://api.deepseek.com';
 }

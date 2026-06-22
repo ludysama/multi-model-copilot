@@ -56,12 +56,12 @@ export async function prepareChatRequest({
 	cacheDiagnostics,
 	getVisionDescriber,
 }: PrepareChatRequestOptions): Promise<PreparedChatRequest> {
-	const apiKey = await authManager.getApiKey();
+	const apiKey = await authManager.getApiKey(modelInfo.id);
 	if (!apiKey) {
 		throw new Error(t('auth.notConfigured'));
 	}
 
-	const baseUrl = getBaseUrl();
+	const baseUrl = getBaseUrl(modelInfo.id);
 	const client = new DeepSeekClient(baseUrl, apiKey);
 	const modelDef = MODELS.find((m) => m.id === modelInfo.id);
 	const isThinkingModel = modelDef?.capabilities.thinking ?? false;

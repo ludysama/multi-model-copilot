@@ -1,3 +1,9 @@
-扩展激活后，DeepSeek 模型应立即出现在 Copilot 模型选择器中。如果尚未配置 API Key，模型会显示警告图标，直到你运行 `DeepSeek: 设置 API Key` 为止。
+插件激活并配置 API Key 后，支持的模型会出现在 Copilot 模型选择器中：
 
-如果没有立即看到，可能只是模型列表较长。在选取器中向下滚动，查找 DeepSeek V4 Flash 和 Pro。
+- **DeepSeek V4 Flash** — 快速、低成本
+- **DeepSeek V4 Pro** — 高质量、支持思考模式
+- **GLM-5.2（智谱）** — 智谱旗舰模型，1M 上下文，OpenAI 兼容端点
+
+每个模型在通过 `多模型 Copilot: 设置 API Key` 设置自己的 Key 之前，会显示警告图标。
+
+如果没有立即看到，可能只是模型列表较长。在选择器中向下滚动，或打开语言模型管理器确认可见性。

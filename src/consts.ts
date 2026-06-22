@@ -9,13 +9,17 @@ import type { ModelDefinition } from './types';
  */
 
 /** VS Code configuration section prefix for all extension settings. */
-export const CONFIG_SECTION = 'deepseek-copilot';
+export const CONFIG_SECTION = 'multi-model-copilot';
 
 export const EXTERNAL_URLS = {
 	deepseek: {
 		apiKeys: 'https://platform.deepseek.com/api_keys',
 		usage: 'https://platform.deepseek.com/usage',
 		status: 'https://status.deepseek.com',
+	},
+	zhipu: {
+		apiKeys: 'https://bigmodel.cn/usercenter/proj-mgmt/apikeys',
+		usage: 'https://bigmodel.cn/usercenter/finance/pay',
 	},
 } as const;
 
@@ -34,19 +38,19 @@ export const LANGUAGE_MODEL_CHAT_SYSTEM_ROLE = 3;
 // ---- Secret keys ----
 
 /** SecretStorage key for the DeepSeek API key. */
-export const API_KEY_SECRET = 'deepseek-copilot.apiKey';
-
-/** memento key tracking whether the welcome walkthrough has been shown. */
-export const WELCOME_SHOWN_KEY = 'deepseek-copilot.welcomeShown';
+export const API_KEY_SECRET = 'multi-model-copilot.apiKey';
 
 // ---- Walkthrough ----
 
 /** Walkthrough contribution ID. */
-export const WALKTHROUGH_ID = 'Vizards.deepseek-v4-for-copilot#deepseekGettingStarted';
+export const WELCOME_SHOWN_KEY = 'multi-model-copilot.welcomeShown';
+
+/** Walkthrough contribution ID. */
+export const WALKTHROUGH_ID = 'ludysama.multi-model-copilot#deepseekGettingStarted';
 
 // ---- Model registry ----
 
-/** Available DeepSeek models exposed through the language model provider. */
+/** Available models exposed through the language model provider. */
 export const MODELS: ModelDefinition[] = [
 	{
 		id: 'deepseek-v4-flash',
@@ -62,6 +66,8 @@ export const MODELS: ModelDefinition[] = [
 			thinking: true,
 		},
 		requiresThinkingParam: true,
+		baseUrl: 'https://api.deepseek.com',
+		apiKeySecret: 'deepseek-copilot.apiKey',
 		pricing: {
 			USD: { cacheHitInput: 0.0028, cacheMissInput: 0.14, output: 0.28 },
 			CNY: { cacheHitInput: 0.02, cacheMissInput: 1, output: 2 },
@@ -82,9 +88,34 @@ export const MODELS: ModelDefinition[] = [
 			thinking: true,
 		},
 		requiresThinkingParam: true,
+		baseUrl: 'https://api.deepseek.com',
+		apiKeySecret: 'deepseek-copilot.apiKey',
 		pricing: {
 			USD: { cacheHitInput: 0.003625, cacheMissInput: 0.435, output: 0.87 },
 			CNY: { cacheHitInput: 0.025, cacheMissInput: 3, output: 6 },
+		},
+		priceCategory: 'low',
+	},
+	// ====== 新增: 智谱 GLM-5.2 ======
+	{
+		id: 'glm-5.2',
+		name: 'GLM-5.2 (智谱)',
+		family: 'glm',
+		version: '5.2',
+		detail: '智谱 GLM-5.2 · 1M 上下文 · Coding 开源 SOTA',
+		maxInputTokens: 1000000,
+		maxOutputTokens: 128000,
+		capabilities: {
+			toolCalling: 256,
+			imageInput: false,
+			thinking: true,
+		},
+		requiresThinkingParam: false,
+		baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
+		apiKeySecret: 'deepseek-copilot.apiKey.zhipu',
+		pricing: {
+			USD: { cacheHitInput: 0.1, cacheMissInput: 1.4, output: 4.4 },
+			CNY: { cacheHitInput: 0.07, cacheMissInput: 1, output: 4 },
 		},
 		priceCategory: 'low',
 	},

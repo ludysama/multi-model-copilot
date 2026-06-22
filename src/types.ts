@@ -117,6 +117,8 @@ export interface ModelDefinition {
 		thinking: boolean;
 	};
 	requiresThinkingParam: boolean;
+	baseUrl?: string; // 编译时配置:模型专属 API endpoint
+	apiKeySecret?: string; // SecretStorage key;不指定则用全局 API_KEY_SECRET
 	pricing?: Readonly<Record<PricingCurrency, ModelPricing>>;
 	priceCategory?: PriceCategory;
 }

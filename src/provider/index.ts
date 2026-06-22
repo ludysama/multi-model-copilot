@@ -53,8 +53,8 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 			// Settings-based fallback API key + base URL changes.
 			vscode.workspace.onDidChangeConfiguration((e) => {
 				if (
-					e.affectsConfiguration('deepseek-copilot.apiKey') ||
-					e.affectsConfiguration('deepseek-copilot.baseUrl')
+					e.affectsConfiguration('multi-model-copilot.apiKey') ||
+					e.affectsConfiguration('multi-model-copilot.baseUrl')
 				) {
 					this.invalidateCurrencyAndRefreshModels();
 				}
@@ -63,7 +63,7 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 			// When another window sets/clears the API key, refresh this window's
 			// model picker so the warning state stays in sync.
 			context.secrets.onDidChange((e) => {
-				if (e.key === 'deepseek-copilot.apiKey') {
+				if (e.key === 'multi-model-copilot.apiKey') {
 					this.invalidateCurrencyAndRefreshModels();
 				}
 			}),
@@ -73,7 +73,25 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 	// ---- Public commands ----
 
 	async configureApiKey(): Promise<void> {
-		const saved = await this.authManager.promptForApiKey();
+		// QuickPick: pick which provider's key to set. Each model stores its
+		// own key under MODELS[*].apiKeySecret so multiple providers (e.g.
+		// DeepSeek + Zhipu GLM) can coexist without a single global key.
+		const pick = await vscode.window.showQuickPick(
+			MODELS.map((m) => ({
+				label: m.name,
+				description: m.baseUrl,
+				modelId: m.id,
+			})),
+			{
+				title: t('auth.selectModelTitle'),
+				placeHolder: t('auth.selectModelPlaceholder'),
+				ignoreFocusOut: true,
+			},
+		);
+		if (!pick) {
+			return;
+		}
+		const saved = await this.authManager.promptForApiKey(pick.modelId);
 		if (saved) {
 			this.invalidateCurrencyAndRefreshModels();
 		}
@@ -131,12 +149,17 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 			return [];
 		}
 
-		const hasKey = await this.authManager.hasApiKey();
 		const pricingCurrency = this.balanceCurrencyResolver.getDisplayCurrency();
-		if (hasKey) {
+		if (await this.authManager.hasApiKey()) {
 			this.balanceCurrencyResolver.refreshInBackground();
 		}
-		return MODELS.map((model) => toChatInfo(model, hasKey, pricingCurrency));
+		// 每个 model 各自查自己的 key (per-model apiKeySecret)
+		return Promise.all(
+			MODELS.map(async (model) => {
+				const hasKey = await this.authManager.hasApiKey(model.id);
+				return toChatInfo(model, hasKey, pricingCurrency);
+			}),
+		);
 	}
 
 	async provideLanguageModelChatResponse(
