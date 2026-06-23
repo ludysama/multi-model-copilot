@@ -26,12 +26,22 @@ export function getBaseUrl(modelId?: string): string {
  * Users can override model IDs via the `modelIdOverrides` setting object
  * (e.g. for third-party API proxies). Falls back to the VS Code model ID
  * when no override is configured.
+ *
+ * Special case: `glm-5.2-coding` shares weights with `glm-5.2` but routes
+ * through Zhipu's Coding Plan endpoint; the API model name is still `glm-5.2`.
  */
 export function getApiModelId(vscodeModelId: string): string {
 	const config = vscode.workspace.getConfiguration(CONFIG_SECTION);
 	const overrides = config.get<Record<string, string>>('modelIdOverrides');
 	const override = overrides?.[vscodeModelId]?.trim();
-	return override || vscodeModelId;
+	if (override) {
+		return override;
+	}
+	// Coding Plan 变体发往 API 时仍用基础模型 ID
+	if (vscodeModelId === 'glm-5.2-coding') {
+		return 'glm-5.2';
+	}
+	return vscodeModelId;
 }
 
 /**

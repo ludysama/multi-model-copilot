@@ -30,6 +30,8 @@
   "multi-model-copilot.config.modelIdOverrides.description": "Override the API model ID sent for each DeepSeek model. Defaults are prefilled with official DeepSeek IDs; change them only when using a compatible third-party API that uses different model names.",
   "multi-model-copilot.config.modelIdOverrides.deepseek-v4-flash.description": "API model ID for DeepSeek V4 Flash",
   "multi-model-copilot.config.modelIdOverrides.deepseek-v4-pro.description": "API model ID for DeepSeek V4 Pro",
+  "multi-model-copilot.config.modelIdOverrides.glm-5.2.description": "API model ID for GLM-5.2 (standard endpoint)",
+  "multi-model-copilot.config.modelIdOverrides.glm-5.2-coding.description": "API model ID for GLM-5.2 (Coding Plan endpoint). Defaults to glm-5.2.",
   "multi-model-copilot.config.visionModel.description": "Compatibility setting managed by [Configure Vision Proxy](command:multi-model-copilot.setVisionModel). Stores the selected VS Code vision model as `vendor/id` when that source is active. Legacy bare model IDs are read for compatibility.",
   "multi-model-copilot.config.visionPrompt.description": "Prompt sent to the vision proxy model when describing image attachments before forwarding them to DeepSeek.\n\n[Configure Vision Proxy](command:multi-model-copilot.setVisionModel)"
 }

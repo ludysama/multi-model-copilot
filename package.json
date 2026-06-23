@@ -144,7 +144,9 @@
           "type": "object",
           "default": {
             "deepseek-v4-flash": "deepseek-v4-flash",
-            "deepseek-v4-pro": "deepseek-v4-pro"
+            "deepseek-v4-pro": "deepseek-v4-pro",
+            "glm-5.2": "glm-5.2",
+            "glm-5.2-coding": "glm-5.2"
           },
           "description": "%multi-model-copilot.config.modelIdOverrides.description%",
           "additionalProperties": false,
@@ -156,6 +158,14 @@
             "deepseek-v4-pro": {
               "type": "string",
               "description": "%multi-model-copilot.config.modelIdOverrides.deepseek-v4-pro.description%"
+            },
+            "glm-5.2": {
+              "type": "string",
+              "description": "%multi-model-copilot.config.modelIdOverrides.glm-5.2.description%"
+            },
+            "glm-5.2-coding": {
+              "type": "string",
+              "description": "%multi-model-copilot.config.modelIdOverrides.glm-5.2-coding.description%"
             }
           }
         },

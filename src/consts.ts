@@ -119,4 +119,29 @@ export const MODELS: ModelDefinition[] = [
 		},
 		priceCategory: 'low',
 	},
+	// ====== 智谱 GLM-5.2 (Coding Plan 独立扣费通道) ======
+	// 同一模型权重，但走智谱 Coding Plan endpoint，需要单独申请的 API Key
+	// 用户在模型选择器里按需选用；Key 独立保存，与标准版互不干扰
+	{
+		id: 'glm-5.2-coding',
+		name: 'GLM-5.2 (智谱 Coding Plan)',
+		family: 'glm',
+		version: '5.2',
+		detail: '智谱 GLM-5.2 · Coding Plan 独立 endpoint 与 API Key · 1M 上下文',
+		maxInputTokens: 1000000,
+		maxOutputTokens: 128000,
+		capabilities: {
+			toolCalling: 256,
+			imageInput: false,
+			thinking: true,
+		},
+		requiresThinkingParam: false,
+		baseUrl: 'https://open.bigmodel.cn/api/coding/paas/v4',
+		apiKeySecret: 'deepseek-copilot.apiKey.zhipu-coding',
+		pricing: {
+			USD: { cacheHitInput: 0.1, cacheMissInput: 1.4, output: 4.4 },
+			CNY: { cacheHitInput: 0.07, cacheMissInput: 1, output: 4 },
+		},
+		priceCategory: 'low',
+	},
 ];

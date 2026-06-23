@@ -36,8 +36,9 @@
 ## API Key 存储
 
 - DeepSeek: `deepseek-copilot.apiKey`（SecretStorage）
-- Zhipu: `deepseek-copilot.apiKey.zhipu`（SecretStorage）
-- 两者 *互不干扰*，可共存
+- Zhipu 标准: `deepseek-copilot.apiKey.zhipu`（SecretStorage）
+- Zhipu Coding Plan: `deepseek-copilot.apiKey.zhipu-coding`（SecretStorage，需单独申请）
+- 三者 *互不干扰*，可共存
 
 ## 模型路由
 
@@ -46,6 +47,7 @@
 | `deepseek-v4-flash` | `https://api.deepseek.com` | per-model secret 或全局 |
 | `deepseek-v4-pro` | `https://api.deepseek.com` | per-model secret 或全局 |
 | `glm-5.2` | `https://open.bigmodel.cn/api/paas/v4` | per-model secret (`apiKey.zhipu`) |
+| `glm-5.2-coding` | `https://open.bigmodel.cn/api/coding/paas/v4` | per-model secret (`apiKey.zhipu-coding`，Coding Plan 专用 key) |
 
 可在 settings.json 用 `deepseek-copilot.modelIdOverrides` 覆盖实际 API model name（vLLM 自部署时把 `glm-5.2` 映射到本地模型名）。
 

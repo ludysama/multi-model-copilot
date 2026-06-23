@@ -66,11 +66,14 @@ API Key 保存在操作系统密钥链中, 不写入 `settings.json`, 不进入 
 
 ## 模型
 
-| 模型 | 提供方 | 上下文 | Key 获取 |
-|------|--------|--------|----------|
-| **DeepSeek V4 Flash** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
-| **DeepSeek V4 Pro** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
-| **GLM-5.2** | 智谱 | 1M | [bigmodel.cn](https://bigmodel.cn) |
+| 模型 | 提供方 | 端点 | API Key |
+|------|--------|------|---------|
+| **DeepSeek V4 Flash** | DeepSeek | `api.deepseek.com` | [platform.deepseek.com](https://platform.deepseek.com) |
+| **DeepSeek V4 Pro** | DeepSeek | `api.deepseek.com` | [platform.deepseek.com](https://platform.deepseek.com) |
+| **GLM-5.2** | 智谱 | `open.bigmodel.cn/api/paas/v4` | [bigmodel.cn](https://bigmodel.cn) (标准 API) |
+| **GLM-5.2 Coding Plan** | 智谱 | `open.bigmodel.cn/api/coding/paas/v4` | Coding Plan 专用 Key (需单独申请) |
+
+GLM-5.2 标准版和 Coding Plan 共用同一模型权重，但端点、扣费、API Key 各自独立。通过 `多模型 Copilot: 设置 API Key` 分别保存各自的 Key。
 
 ---
 

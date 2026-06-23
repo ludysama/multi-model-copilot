@@ -66,11 +66,14 @@ Pure VS Code API + Node.js. No Python, Docker, or local proxy.
 
 ## Models
 
-| Model | Provider | Context | Key Source |
-|-------|----------|---------|------------|
-| **DeepSeek V4 Flash** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
-| **DeepSeek V4 Pro** | DeepSeek | 1M | [platform.deepseek.com](https://platform.deepseek.com) |
-| **GLM-5.2** | Zhipu | 1M | [bigmodel.cn](https://bigmodel.cn) |
+| Model | Provider | Endpoint | Key |
+|-------|----------|----------|-----|
+| **DeepSeek V4 Flash** | DeepSeek | `api.deepseek.com` | [platform.deepseek.com](https://platform.deepseek.com) |
+| **DeepSeek V4 Pro** | DeepSeek | `api.deepseek.com` | [platform.deepseek.com](https://platform.deepseek.com) |
+| **GLM-5.2** | Zhipu | `open.bigmodel.cn/api/paas/v4` | [bigmodel.cn](https://bigmodel.cn) (standard) |
+| **GLM-5.2 Coding Plan** | Zhipu | `open.bigmodel.cn/api/coding/paas/v4` | Coding Plan API key (separate) |
+
+GLM-5.2 standard and Coding Plan share the same model weights but use different endpoints, billing, and API keys. Set each key independently via `Multi-Model Copilot: Set API Key`.
 
 ---
 
