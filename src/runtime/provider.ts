@@ -13,6 +13,9 @@ export async function registerProvider(
 		vscode.commands.registerCommand('multi-model-copilot.setVisionModel', () =>
 			provider.setVisionModel(),
 		),
+		vscode.commands.registerCommand('multi-model-copilot.addCustomProvider', () =>
+			provider.addCustomProvider(),
+		),
 		vscode.lm.registerLanguageModelChatProvider('deepseek', provider),
 	);
 

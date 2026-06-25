@@ -1,9 +1,9 @@
 {
   "name": "multi-model-copilot",
-  "displayName": "Multi-Model Copilot (DeepSeek V4 + GLM-5.2)",
-  "description": "Pick DeepSeek V4 Pro & Flash, plus GLM-5.2 (Zhipu), from the Copilot Chat model picker. Vision, thinking mode, agent tools — zero config, BYOK.",
+  "displayName": "Multi-Model Copilot",
+  "description": "Bring your own model: DeepSeek V4, GLM-5.2, and custom OpenAI-compatible providers in the Copilot Chat model picker. Vision, thinking mode, agent tools — zero config, BYOK.",
   "icon": "resources/icon.png",
-  "version": "0.6.2",
+  "version": "0.6.201",
   "publisher": "ludysama",
   "license": "MIT",
   "repository": {
@@ -75,6 +75,10 @@
       {
         "command": "multi-model-copilot.openRequestDumpsFolder",
         "title": "%multi-model-copilot.command.openRequestDumpsFolder%"
+      },
+      {
+        "command": "multi-model-copilot.addCustomProvider",
+        "title": "%multi-model-copilot.command.addCustomProvider%"
       }
     ],
     "walkthroughs": [
@@ -131,6 +135,63 @@
           "default": 0,
           "minimum": 0,
           "description": "%multi-model-copilot.config.maxTokens.description%"
+        },
+        "multi-model-copilot.customModels": {
+          "type": "array",
+          "default": [],
+          "description": "%multi-model-copilot.config.customModels.description%",
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "baseUrl", "apiModelId"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "%multi-model-copilot.config.customModels.id.description%"
+              },
+              "name": {
+                "type": "string",
+                "description": "%multi-model-copilot.config.customModels.name.description%"
+              },
+              "baseUrl": {
+                "type": "string",
+                "description": "%multi-model-copilot.config.customModels.baseUrl.description%"
+              },
+              "apiModelId": {
+                "type": "string",
+                "description": "%multi-model-copilot.config.customModels.apiModelId.description%"
+              },
+              "apiKeySecret": {
+                "type": "string",
+                "description": "%multi-model-copilot.config.customModels.apiKeySecret.description%"
+              },
+              "maxInputTokens": {
+                "type": "number",
+                "description": "%multi-model-copilot.config.customModels.maxInputTokens.description%"
+              },
+              "maxOutputTokens": {
+                "type": "number",
+                "description": "%multi-model-copilot.config.customModels.maxOutputTokens.description%"
+              },
+              "capabilities": {
+                "type": "object",
+                "description": "%multi-model-copilot.config.customModels.capabilities.description%",
+                "properties": {
+                  "toolCalling": {
+                    "type": "number",
+                    "description": "%multi-model-copilot.config.customModels.capabilities.toolCalling.description%"
+                  },
+                  "imageInput": {
+                    "type": "boolean",
+                    "description": "%multi-model-copilot.config.customModels.capabilities.imageInput.description%"
+                  },
+                  "thinking": {
+                    "type": "boolean",
+                    "description": "%multi-model-copilot.config.customModels.capabilities.thinking.description%"
+                  }
+                }
+              }
+            }
+          }
         },
         "multi-model-copilot.experimental.stabilizeToolList": {
           "type": "boolean",

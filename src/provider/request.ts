@@ -2,7 +2,7 @@ import vscode from 'vscode';
 import { AuthManager } from '../auth';
 import { DeepSeekClient } from '../client';
 import { getApiModelId, getBaseUrl, getMaxTokens } from '../config';
-import { MODELS } from '../consts';
+import { getAllModels } from '../consts';
 import { isOfficialDeepSeekBaseUrl } from '../endpoint';
 import { t } from '../i18n';
 import type { DeepSeekRequest } from '../types';
@@ -63,7 +63,7 @@ export async function prepareChatRequest({
 
 	const baseUrl = getBaseUrl(modelInfo.id);
 	const client = new DeepSeekClient(baseUrl, apiKey);
-	const modelDef = MODELS.find((m) => m.id === modelInfo.id);
+	const modelDef = getAllModels().find((m) => m.id === modelInfo.id);
 	const isThinkingModel = modelDef?.capabilities.thinking ?? false;
 	const maxTokens = getMaxTokens();
 

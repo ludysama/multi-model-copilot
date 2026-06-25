@@ -1,5 +1,6 @@
 import vscode from 'vscode';
-import { CONFIG_SECTION, MODELS } from './consts';
+import { CONFIG_SECTION, getAllModels } from './consts';
+import type { CustomModelDefinition } from './types';
 
 export type DebugMode = 'minimal' | 'metadata' | 'verbose';
 
@@ -10,7 +11,7 @@ export type DebugMode = 'minimal' | 'metadata' | 'verbose';
 export function getBaseUrl(modelId?: string): string {
 	// 1) 优先 model 自带的 baseUrl (编译时常量)
 	if (modelId) {
-		const modelDef = MODELS.find((m) => m.id === modelId);
+		const modelDef = getAllModels().find((m) => m.id === modelId);
 		if (modelDef?.baseUrl) {
 			return modelDef.baseUrl;
 		}
@@ -40,6 +41,14 @@ export function getApiModelId(vscodeModelId: string): string {
 	// Coding Plan 变体发往 API 时仍用基础模型 ID
 	if (vscodeModelId === 'glm-5.2-coding') {
 		return 'glm-5.2';
+	}
+	// Custom models: use the apiModelId stored in settings
+	if (vscodeModelId.startsWith('custom-')) {
+		const customs: CustomModelDefinition[] = config.get<CustomModelDefinition[]>('customModels') ?? [];
+		const custom = customs.find((c) => c.id === vscodeModelId);
+		if (custom?.apiModelId) {
+			return custom.apiModelId;
+		}
 	}
 	return vscodeModelId;
 }

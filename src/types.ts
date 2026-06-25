@@ -122,3 +122,22 @@ export interface ModelDefinition {
 	pricing?: Readonly<Record<PricingCurrency, ModelPricing>>;
 	priceCategory?: PriceCategory;
 }
+
+/**
+ * User-defined custom model stored in VS Code settings.
+ * Only the essential fields; sensible defaults filled in at runtime.
+ */
+export interface CustomModelDefinition {
+	id: string;
+	name: string;
+	baseUrl: string;
+	apiModelId: string; // actual model ID sent to the API endpoint
+	apiKeySecret?: string; // SecretStorage key for per-model API key
+	maxInputTokens?: number;
+	maxOutputTokens?: number;
+	capabilities?: {
+		toolCalling?: number;
+		imageInput?: boolean;
+		thinking?: boolean;
+	};
+}

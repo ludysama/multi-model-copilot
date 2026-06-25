@@ -62,3 +62,41 @@
 - 不主动 rebase 上游（避免冲突）
 - release-please 管本 fork 的版本号
 - 每次上游新版本时手工 cherry-pick bug fix 到本 fork
+
+---
+
+## v0.7.0 新增：自定义供应商 (Custom Provider)
+
+通过 `Multi-Model Copilot: Add Custom Provider` 命令，可在 VS Code 中直接添加任意 OpenAI 兼容 API 供应商，无需编辑源码。
+
+### 使用方式
+
+1. 命令面板跑 `Multi-Model Copilot: Add Custom Provider`
+2. 依次输入：显示名称 → API URL → 模型 ID → API Key
+3. 自动保存到 `multi-model-copilot.customModels` settings，模型选择器即时刷新
+
+### 技术实现
+
+| 改动点 | 文件 | 说明 |
+|---|---|---|
+| `CustomModelDefinition` 类型 | `src/types.ts` | 用户自定义模型的 settings schema |
+| `getAllModels()` 合并 builtin + custom | `src/consts.ts` | 替换硬编码 MODELS 为动态合并 |
+| `saveCustomModel()` / `removeCustomModel()` | `src/consts.ts` | 读写 `customModels` settings |
+| `getApiModelId()` 支持 custom 前缀 | `src/config.ts` | custom-* 模型读取 `apiModelId` 字段 |
+| `addCustomProvider()` 4 步 InputBox | `src/provider/index.ts` | 交互式添加流程 |
+| 所有 MODELS 消费者改为 `getAllModels()` | `src/auth.ts`, `src/config.ts`, `src/provider/request.ts`, `src/provider/index.ts` | 统一动态模型列表 |
+| `REPLAY_MARKER_PREFIXES` → `getReplayMarkerPrefixes()` | `src/provider/replay/consts.ts`, `src/provider/replay/markers.ts` | 运行时包含 custom model IDs |
+| `customModels` settings schema | `package.json` | 用户可在 settings.json 直接编辑 |
+| i18n 中英文新增 12 个 key | `src/i18n.ts` | 添加流程所有提示文案 |
+| 命令注册 | `package.json`, `package.nls*.json`, `src/runtime/provider.ts` | `addCustomProvider` 命令 |
+
+### 自定义模型默认能力
+
+| 属性 | 默认值 | 说明 |
+|---|---|---|
+| `maxInputTokens` | 128000 | 可覆盖 |
+| `maxOutputTokens` | 32768 | 可覆盖 |
+| `toolCalling` | 256 | 可覆盖 |
+| `imageInput` | false | 可覆盖 |
+| `thinking` | false | 可覆盖 |
+| `requiresThinkingParam` | false | 不发送 thinking 参数 |

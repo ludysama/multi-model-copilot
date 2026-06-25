@@ -1,5 +1,6 @@
 import { DEEPSEEK_TOOLS_LIMIT } from './provider/tools/consts';
-import type { ModelDefinition } from './types';
+import type { CustomModelDefinition, ModelDefinition } from './types';
+import vscode from 'vscode';
 
 /**
  * Compile-time constants shared across the extension.
@@ -145,3 +146,74 @@ export const MODELS: ModelDefinition[] = [
 		priceCategory: 'low',
 	},
 ];
+
+/**
+ * Default capabilities applied to custom models when not specified.
+ */
+const DEFAULT_CUSTOM_CAPABILITIES = {
+	toolCalling: 256,
+	imageInput: false,
+	thinking: false,
+};
+
+/**
+ * Convert a user-defined CustomModelDefinition (from settings) into a
+ * full ModelDefinition that the provider can consume.
+ */
+function customToModelDef(c: CustomModelDefinition): ModelDefinition {
+	return {
+		id: c.id,
+		name: c.name,
+		family: 'custom',
+		version: 'custom',
+		detail: c.baseUrl,
+		maxInputTokens: c.maxInputTokens ?? 128000,
+		maxOutputTokens: c.maxOutputTokens ?? 32768,
+		capabilities: {
+			toolCalling: c.capabilities?.toolCalling ?? DEFAULT_CUSTOM_CAPABILITIES.toolCalling,
+			imageInput: c.capabilities?.imageInput ?? DEFAULT_CUSTOM_CAPABILITIES.imageInput,
+			thinking: c.capabilities?.thinking ?? DEFAULT_CUSTOM_CAPABILITIES.thinking,
+		},
+		requiresThinkingParam: false,
+		baseUrl: c.baseUrl,
+		apiKeySecret: c.apiKeySecret,
+	};
+}
+
+/**
+ * Return the merged list of built-in + user-defined custom models.
+ * Custom models are read from `multi-model-copilot.customModels` settings.
+ */
+export function getAllModels(): ModelDefinition[] {
+	const builtin = MODELS;
+	const config = vscode.workspace.getConfiguration(CONFIG_SECTION);
+	const customs: CustomModelDefinition[] = config.get<CustomModelDefinition[]>('customModels') ?? [];
+	const customModels = customs.map(customToModelDef);
+	return [...builtin, ...customModels];
+}
+
+/**
+ * Save a custom model definition to VS Code settings.
+ */
+export async function saveCustomModel(model: CustomModelDefinition): Promise<void> {
+	const config = vscode.workspace.getConfiguration(CONFIG_SECTION);
+	const existing: CustomModelDefinition[] = config.get<CustomModelDefinition[]>('customModels') ?? [];
+	// Replace if same id already exists, otherwise append
+	const idx = existing.findIndex((m) => m.id === model.id);
+	if (idx >= 0) {
+		existing[idx] = model;
+	} else {
+		existing.push(model);
+	}
+	await config.update('customModels', existing, vscode.ConfigurationTarget.Global);
+}
+
+/**
+ * Remove a custom model definition from VS Code settings by id.
+ */
+export async function removeCustomModel(id: string): Promise<void> {
+	const config = vscode.workspace.getConfiguration(CONFIG_SECTION);
+	const existing: CustomModelDefinition[] = config.get<CustomModelDefinition[]>('customModels') ?? [];
+	const filtered = existing.filter((m) => m.id !== id);
+	await config.update('customModels', filtered, vscode.ConfigurationTarget.Global);
+}

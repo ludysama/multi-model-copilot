@@ -200,6 +200,22 @@ const zh: Translations = {
 		'[{0}] 网络请求失败。请检查网络连接、防火墙或代理设置，以及自定义 baseUrl。',
 	'error.unknown': 'DeepSeek 请求失败：{0}',
 
+	// Custom Provider
+	'custom.addProviderTitle': '添加自定义模型供应商',
+	'custom.namePrompt': '输入供应商/模型显示名称',
+	'custom.namePlaceholder': '例如：GLM-5.2 猿原云中转',
+	'custom.nameRequired': '名称不能为空',
+	'custom.urlPrompt': '输入 API 端点 URL（OpenAI 兼容）',
+	'custom.urlPlaceholder': 'https://your-provider.com/v1',
+	'custom.urlRequired': 'URL 不能为空',
+	'custom.urlInvalid': 'URL 格式无效，请输入完整地址（含 https://）',
+	'custom.apiModelIdPrompt': '输入 API 模型 ID（发送给端点的实际模型名）',
+	'custom.apiModelIdPlaceholder': '例如：glm5.2',
+	'custom.apiModelIdRequired': 'API 模型 ID 不能为空',
+	'custom.apiKeyPrompt': '输入 {0} 的 API Key',
+	'custom.apiKeyRequired': 'API Key 不能为空',
+	'custom.saved': '已添加自定义供应商：{0}，模型选择器已刷新。',
+
 	// Extension
 	'extension.activateFailed': 'DeepSeek 激活失败，请运行 "DeepSeek: 显示日志" 查看详情。',
 	'extension.deactivateFailed': 'DeepSeek 停用异常',
@@ -422,6 +438,22 @@ const en: Translations = {
 	'error.network.generic':
 		'[{0}] Network request failed. Check your network connection, firewall, or proxy settings, and your custom baseUrl.',
 	'error.unknown': 'DeepSeek request failed: {0}',
+
+	// Custom Provider
+	'custom.addProviderTitle': 'Add Custom Model Provider',
+	'custom.namePrompt': 'Enter provider / model display name',
+	'custom.namePlaceholder': 'e.g. GLM-5.2 Relay',
+	'custom.nameRequired': 'Name is required',
+	'custom.urlPrompt': 'Enter API endpoint URL (OpenAI-compatible)',
+	'custom.urlPlaceholder': 'https://your-provider.com/v1',
+	'custom.urlRequired': 'URL is required',
+	'custom.urlInvalid': 'Invalid URL — include the full address (with https://)',
+	'custom.apiModelIdPrompt': 'Enter API model ID (actual model name sent to endpoint)',
+	'custom.apiModelIdPlaceholder': 'e.g. glm5.2',
+	'custom.apiModelIdRequired': 'API model ID is required',
+	'custom.apiKeyPrompt': 'Enter API key for {0}',
+	'custom.apiKeyRequired': 'API key is required',
+	'custom.saved': 'Custom provider added: {0}. Model picker refreshed.',
 
 	// Extension
 	'extension.activateFailed': 'DeepSeek failed to activate. Run "DeepSeek: Show Logs" for details.',

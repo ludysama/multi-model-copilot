@@ -1,7 +1,7 @@
 import vscode from 'vscode';
 import { AuthManager } from '../auth';
 import { getStabilizeToolListEnabled } from '../config';
-import { MODELS } from '../consts';
+import { getAllModels } from '../consts';
 import { t } from '../i18n';
 import { logger } from '../logger';
 import { createCacheDiagnosticsRecorder, dumpProviderInput } from './debug';
@@ -54,7 +54,8 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 			vscode.workspace.onDidChangeConfiguration((e) => {
 				if (
 					e.affectsConfiguration('multi-model-copilot.apiKey') ||
-					e.affectsConfiguration('multi-model-copilot.baseUrl')
+					e.affectsConfiguration('multi-model-copilot.baseUrl') ||
+					e.affectsConfiguration('multi-model-copilot.customModels')
 				) {
 					this.invalidateCurrencyAndRefreshModels();
 				}
@@ -76,8 +77,9 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 		// QuickPick: pick which provider's key to set. Each model stores its
 		// own key under MODELS[*].apiKeySecret so multiple providers (e.g.
 		// DeepSeek + Zhipu GLM) can coexist without a single global key.
+		const allModels = getAllModels();
 		const pick = await vscode.window.showQuickPick(
-			MODELS.map((m) => ({
+			allModels.map((m) => ({
 				label: m.name,
 				description: m.baseUrl,
 				modelId: m.id,
@@ -95,6 +97,91 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 		if (saved) {
 			this.invalidateCurrencyAndRefreshModels();
 		}
+	}
+
+	/**
+	 * Walk the user through adding a custom model provider.
+	 * Collects name, base URL, API model ID, and API key — saves to
+	 * `multi-model-copilot.customModels` settings and immediately refreshes
+	 * the model picker so the new provider appears.
+	 */
+	async addCustomProvider(): Promise<void> {
+		// Step 1: Provider display name
+		const name = await vscode.window.showInputBox({
+			title: t('custom.addProviderTitle'),
+			prompt: t('custom.namePrompt'),
+			placeHolder: t('custom.namePlaceholder'),
+			ignoreFocusOut: true,
+			validateInput: (v) => (v?.trim() ? undefined : t('custom.nameRequired')),
+		});
+		if (!name?.trim()) return;
+
+		// Step 2: Base URL
+		const baseUrl = await vscode.window.showInputBox({
+			title: t('custom.addProviderTitle'),
+			prompt: t('custom.urlPrompt'),
+			placeHolder: t('custom.urlPlaceholder'),
+			ignoreFocusOut: true,
+			validateInput: (v) => {
+				if (!v?.trim()) return t('custom.urlRequired');
+				try {
+					new URL(v.trim());
+					return undefined;
+				} catch {
+					return t('custom.urlInvalid');
+				}
+			},
+		});
+		if (!baseUrl?.trim()) return;
+
+		// Step 3: API model ID (what's sent to the endpoint)
+		const apiModelId = await vscode.window.showInputBox({
+			title: t('custom.addProviderTitle'),
+			prompt: t('custom.apiModelIdPrompt'),
+			placeHolder: t('custom.apiModelIdPlaceholder'),
+			ignoreFocusOut: true,
+			validateInput: (v) => (v?.trim() ? undefined : t('custom.apiModelIdRequired')),
+		});
+		if (!apiModelId?.trim()) return;
+
+		// Step 4: API Key (stored in SecretStorage)
+		const apiKey = await vscode.window.showInputBox({
+			title: t('custom.addProviderTitle'),
+			prompt: t('custom.apiKeyPrompt', name.trim()),
+			placeHolder: t('auth.placeholder'),
+			password: true,
+			ignoreFocusOut: true,
+			validateInput: (v) => (v?.trim() ? undefined : t('custom.apiKeyRequired')),
+		});
+		if (!apiKey?.trim()) return;
+
+		// Generate a stable id from the name
+		const id = 'custom-' + name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+		const secretKey = `multi-model-copilot.custom.${id}`;
+
+		// Save the custom model config to settings FIRST so getAllModels() can find it
+		const config = vscode.workspace.getConfiguration('multi-model-copilot');
+		const existing: object[] = config.get<object[]>('customModels') ?? [];
+		const idx = existing.findIndex((m: any) => m.id === id);
+		const entry = {
+			id,
+			name: name.trim(),
+			baseUrl: baseUrl.trim().replace(/\/+$/, ''),
+			apiModelId: apiModelId.trim(),
+			apiKeySecret: secretKey,
+		};
+		if (idx >= 0) {
+			existing[idx] = entry;
+		} else {
+			existing.push(entry);
+		}
+		await config.update('customModels', existing, vscode.ConfigurationTarget.Global);
+
+		// Now save the API key — setApiKeyForModel will find the model via getAllModels()
+		await this.authManager.setApiKeyForModel(id, apiKey.trim());
+
+		vscode.window.showInformationMessage(t('custom.saved', name.trim()));
+		this.invalidateCurrencyAndRefreshModels();
 	}
 
 	async clearApiKey(): Promise<void> {
@@ -155,7 +242,7 @@ export class DeepSeekChatProvider implements vscode.LanguageModelChatProvider {
 		}
 		// 每个 model 各自查自己的 key (per-model apiKeySecret)
 		return Promise.all(
-			MODELS.map(async (model) => {
+			getAllModels().map(async (model) => {
 				const hasKey = await this.authManager.hasApiKey(model.id);
 				return toChatInfo(model, hasKey, pricingCurrency);
 			}),

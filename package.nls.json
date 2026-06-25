@@ -6,6 +6,7 @@
   "multi-model-copilot.command.openSettings": "Multi-Model Copilot: Open Settings",
   "multi-model-copilot.command.showLogs": "Multi-Model Copilot: Show Logs",
   "multi-model-copilot.command.openRequestDumpsFolder": "Multi-Model Copilot: Open Request Dumps Folder",
+  "multi-model-copilot.command.addCustomProvider": "Multi-Model Copilot: Add Custom Provider",
   "multi-model-copilot.walkthrough.title": "Multi-Model Copilot — Forked from Vizards/deepseek-v4-for-copilot",
   "multi-model-copilot.walkthrough.description": "Use DeepSeek V4 and Zhipu GLM-5.2 models in Copilot Chat. Forked from Vizards/deepseek-v4-for-copilot (MIT License).",
   "multi-model-copilot.walkthrough.forkOrigin.title": "Forked from Vizards/deepseek-v4-for-copilot",
@@ -33,5 +34,17 @@
   "multi-model-copilot.config.modelIdOverrides.glm-5.2.description": "API model ID for GLM-5.2 (standard endpoint)",
   "multi-model-copilot.config.modelIdOverrides.glm-5.2-coding.description": "API model ID for GLM-5.2 (Coding Plan endpoint). Defaults to glm-5.2.",
   "multi-model-copilot.config.visionModel.description": "Compatibility setting managed by [Configure Vision Proxy](command:multi-model-copilot.setVisionModel). Stores the selected VS Code vision model as `vendor/id` when that source is active. Legacy bare model IDs are read for compatibility.",
-  "multi-model-copilot.config.visionPrompt.description": "Prompt sent to the vision proxy model when describing image attachments before forwarding them to DeepSeek.\n\n[Configure Vision Proxy](command:multi-model-copilot.setVisionModel)"
+  "multi-model-copilot.config.visionPrompt.description": "Prompt sent to the vision proxy model when describing image attachments before forwarding them to DeepSeek.\n\n[Configure Vision Proxy](command:multi-model-copilot.setVisionModel)",
+  "multi-model-copilot.config.customModels.description": "User-defined custom model providers. Use the \"Add Custom Provider\" command to add entries, or edit this array directly in settings.json.",
+  "multi-model-copilot.config.customModels.id.description": "Unique model ID (auto-generated, e.g. 'custom-my-provider')",
+  "multi-model-copilot.config.customModels.name.description": "Display name shown in the Copilot Chat model picker",
+  "multi-model-copilot.config.customModels.baseUrl.description": "API endpoint base URL (OpenAI-compatible, e.g. https://api.example.com/v1)",
+  "multi-model-copilot.config.customModels.apiModelId.description": "Actual model ID sent to the API endpoint (e.g. gpt-4, glm5.2)",
+  "multi-model-copilot.config.customModels.apiKeySecret.description": "SecretStorage key for per-model API key (auto-generated)",
+  "multi-model-copilot.config.customModels.maxInputTokens.description": "Maximum input tokens (default: 128000)",
+  "multi-model-copilot.config.customModels.maxOutputTokens.description": "Maximum output tokens (default: 32768)",
+  "multi-model-copilot.config.customModels.capabilities.description": "Model capability flags",
+  "multi-model-copilot.config.customModels.capabilities.toolCalling.description": "Maximum number of tool/function calls (default: 256)",
+  "multi-model-copilot.config.customModels.capabilities.imageInput.description": "Whether the model supports image input (default: false)",
+  "multi-model-copilot.config.customModels.capabilities.thinking.description": "Whether the model supports thinking/reasoning mode (default: false)"
 }

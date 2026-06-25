@@ -1,5 +1,5 @@
 import vscode from 'vscode';
-import { API_KEY_SECRET, MODELS } from './consts';
+import { API_KEY_SECRET, getAllModels } from './consts';
 import { t } from './i18n';
 
 /**
@@ -24,7 +24,7 @@ export class AuthManager {
 	async getApiKey(modelId?: string): Promise<string | undefined> {
 		// 1) 优先 model 自己的 secret
 		if (modelId) {
-			const modelDef = MODELS.find((m) => m.id === modelId);
+			const modelDef = getAllModels().find((m) => m.id === modelId);
 			if (modelDef?.apiKeySecret) {
 				const modelKey = await this.secretStorage.get(modelDef.apiKeySecret);
 				if (modelKey) {
@@ -60,7 +60,7 @@ export class AuthManager {
 	 * SecretStorage key when declared, otherwise falls back to the global key.
 	 */
 	async setApiKeyForModel(modelId: string, apiKey: string): Promise<void> {
-		const modelDef = MODELS.find((m) => m.id === modelId);
+		const modelDef = getAllModels().find((m) => m.id === modelId);
 		const secretKey = modelDef?.apiKeySecret ?? API_KEY_SECRET;
 		await this.secretStorage.store(secretKey, apiKey.trim());
 	}
@@ -88,7 +88,7 @@ export class AuthManager {
 	 *                providers (e.g. DeepSeek vs Zhipu) can coexist.
 	 */
 	async promptForApiKey(modelId?: string): Promise<boolean> {
-		const modelDef = modelId ? MODELS.find((m) => m.id === modelId) : undefined;
+		const modelDef = modelId ? getAllModels().find((m) => m.id === modelId) : undefined;
 		const modelLabel = modelDef?.name ?? t('auth.defaultModelLabel');
 		const apiKey = await vscode.window.showInputBox({
 			prompt: t('auth.promptFor', modelLabel),
